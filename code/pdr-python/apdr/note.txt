@@ -1,0 +1,18 @@
+with out sygus 
+
+Config_Max_Frame = 10000000
+Config_use_itp_in_pushing = False
+Config_debug = False
+
+4 bits F19  46s
+
+
+Config_Max_Frame = 10000000
+Config_use_itp_in_pushing = True
+Config_debug = False 
+
+4bits F18 52s
+
+
+To view the profiling
+snakeviz pdr_bvadd.profile

@@ -1,0 +1,37 @@
+- use btor when possible
+- when not needed, don't enunemrate model in solve (and use btor)
+
+- assumptions : add to all frame ? (or add to transition?)
+- array: blackbox ?
+- variable set : too constrained? trial and error ?
+
+- use init in sygus ? Yes. You must.
+
+- fast solve using btor if model is not necessary
+
+- over-approximation :
+    drop cex that are too difficult (we may add them later if they are truly needed)
+    
+- synthesize new lemmas:
+    don't use those that are difficult
+    or just use that it should block (so we rely on the conjunction to do the work)
+    need to take init => ITP into consideration in SyGuS!
+
+- push lemma 
+   do not do that hard to non property lemma?
+
+- lemma status tracking
+
+- test other designs (SP, vdp)
+
+- var set heuristics (!!!)
+- sygus-stream (!!!)
+- var set decisions () --> sp/aes
+- assumptions
+- debug INT BV interpolant?
+- break : dump frame
+- push summary
+- srem
+- neg p on each frame
+- block cex 's sygus
+* module name etc: only leaves those with "m1."

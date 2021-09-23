@@ -1,0 +1,6 @@
+
+  &read cnt.aig
+  &put
+  pdr
+  
+  inv_print -v

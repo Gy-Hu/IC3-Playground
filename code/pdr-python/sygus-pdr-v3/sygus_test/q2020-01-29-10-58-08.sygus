@@ -1,0 +1,62 @@
+
+
+(set-logic BV)
+
+
+
+(synth-fun INV 
+   ((addr (_ BitVec 4)) (base (_ BitVec 4)) (cnt (_ BitVec 4)) (lden (_ BitVec 1))) Bool
+( (Conj Bool) (Disj Bool) (Literal Bool) (Atom Bool)
+  (E4 (_ BitVec 4)) (V4 (_ BitVec 4)) (C4 (_ BitVec 4)) (Arithm4 (_ BitVec 4)) (E1 (_ BitVec 1)) (V1 (_ BitVec 1))
+)
+(
+    (Conj Bool (Disj 
+                (and Disj Conj)))
+    (Disj Bool (Literal 
+                (or Literal Disj)))
+    (Literal Bool (Atom
+                (not Atom)))
+    (Atom Bool (
+      (= E4 E4) (= E1 E1)
+      ))
+      (E4 (_ BitVec 4) (V4 C4 Arithm4 ))
+(V4 (_ BitVec 4) (base addr cnt))
+(C4 (_ BitVec 4) (#b0001 #b1000))
+(Arithm4 (_ BitVec 4) ((bvadd E4 E4)))
+(E1 (_ BitVec 1) (V1 ))
+(V1 (_ BitVec 1) (lden))
+
+   ))
+
+
+
+
+
+(declare-var addrV (_ BitVec 4))
+(declare-var baseV (_ BitVec 4))
+(declare-var cntV (_ BitVec 4))
+(declare-var inpV (_ BitVec 4))
+(declare-var ldenV (_ BitVec 1))
+(declare-var addrP (_ BitVec 4))
+(declare-var baseP (_ BitVec 4))
+(declare-var cntP (_ BitVec 4))
+(declare-var inpP (_ BitVec 4))
+(declare-var ldenP (_ BitVec 1))
+
+(constraint (not (INV #b0000 #b1000 #b0000 #b0)))
+(constraint (not (INV #b1001 #b1000 #b0000 #b0)))
+(constraint (not (INV #b1001 #b1000 #b0100 #b0)))
+(constraint (not (INV #b1001 #b1000 #b1000 #b0)))
+(constraint (not (INV #b1001 #b1000 #b1100 #b0)))
+(constraint (not (INV #b1001 #b1000 #b0010 #b0)))
+(constraint (not (INV #b1001 #b1000 #b1010 #b0)))
+(constraint (not (INV #b1001 #b1000 #b0110 #b0)))
+(constraint (not (INV #b1001 #b1000 #b1110 #b0)))
+(constraint (INV  #b1001 #b1000 #b0001 #b0))
+(constraint (INV  #b1000 #b0000 #b0000 ldenV))
+(constraint (INV  #b1100 #b0000 #b0000 ldenV))
+
+
+
+(check-synth)
+

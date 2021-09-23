@@ -1,0 +1,7 @@
+build/
+massif.*
+z3/
+.settings/
+.cproject
+.project
+*.o

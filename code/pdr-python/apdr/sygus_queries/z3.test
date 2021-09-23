@@ -1,0 +1,35 @@
+ (set-logic QF_BV)
+(define-fun Fminus2 
+  (
+    (base (_ BitVec 4))
+    (addr (_ BitVec 4))
+    (cnt (_ BitVec 4))
+    (inp (_ BitVec 4))
+    (lden (_ BitVec 1))
+  ) Bool 
+  
+    (let 
+      ((.def_0 (= cnt #b0000))) 
+      (let ((.def_1 (= addr #b0000))) 
+        (let ((.def_2 (= base #b0000))) 
+          (let ((.def_3 (and .def_2 .def_1))) 
+            (let ((.def_4 (and .def_3 .def_0))) .def_4)))))
+  
+)
+
+(define-fun Tr ((base (_ BitVec 4)) (addr (_ BitVec 4)) (cnt (_ BitVec 4)) (inp (_ BitVec 4)) (lden (_ BitVec 1)) (base_prime (_ BitVec 4)) (addr_prime (_ BitVec 4)) (cnt_prime (_ BitVec 4)) (inp_prime (_ BitVec 4)) (lden_prime (_ BitVec 1))) Bool (let ((.def_0 (= cnt #b0000))) (let ((.def_1 (= addr #b0000))) (let ((.def_2 (= base #b0000))) (let ((.def_3 (and .def_2 .def_1))) (let ((.def_4 (and .def_3 .def_0))) .def_4))))))
+
+
+(declare-fun baseV () (_ BitVec 4))
+(declare-fun addrV () (_ BitVec 4))
+(declare-fun cntV () (_ BitVec 4))
+(declare-fun inpV () (_ BitVec 4))
+(declare-fun ldenV () (_ BitVec 1))
+(declare-fun baseP () (_ BitVec 4))
+(declare-fun addrP () (_ BitVec 4))
+(declare-fun cntP () (_ BitVec 4))
+(declare-fun inpP () (_ BitVec 4))
+(declare-fun ldenP () (_ BitVec 1))
+
+(assert (and (Fminus2 baseV addrV cntV inpV ldenV) (Tr baseV addrV cntV inpV ldenV baseP addrP cntP inpP ldenP)))
+(check-sat)

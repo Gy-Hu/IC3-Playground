@@ -1,0 +1,65 @@
+; remove variables
+; make init
+; make it bit2
+
+(set-logic BV)
+
+
+
+(synth-fun INV 
+   ((addr (_ BitVec 2)) (base (_ BitVec 2)) (cnt (_ BitVec 2))) Bool
+( (Conj Bool) (Disj Bool) (Literal Bool) (Atom Bool)
+  (E4 (_ BitVec 2)) (V4 (_ BitVec 2)) (C4 (_ BitVec 2)) (Arithm4 (_ BitVec 2))
+)
+(
+    (Conj Bool (Disj 
+                (and Disj Conj)))
+    (Disj Bool (Literal 
+                (or Literal Disj)))
+    (Literal Bool (Atom
+                (not Atom)))
+    (Atom Bool (
+      (= E4 E4)
+      ))
+      (E4 (_ BitVec 2) (V4 C4 Arithm4 ))
+(V4 (_ BitVec 2) (base addr cnt))
+(C4 (_ BitVec 2) (#b00 #b01 #b10 #b11))
+(Arithm4 (_ BitVec 2) ((bvadd E4 E4)))
+
+
+   ))
+
+
+(define-fun Init ((addr (_ BitVec 2)) (base (_ BitVec 2)) (cnt (_ BitVec 2)) (inp (_ BitVec 2)) (lden (_ BitVec 1))) Bool 
+    (and (= #b00 addr)
+         (= #b00 base)
+         (= #b00 cnt)
+    )
+)
+         
+(define-fun Tr ((addr (_ BitVec 2)) (base (_ BitVec 2)) (cnt (_ BitVec 2)) (inp (_ BitVec 2)) (lden (_ BitVec 1)) (addr_prime (_ BitVec 2)) (base_prime (_ BitVec 2)) (cnt_prime (_ BitVec 2)) (inp_prime (_ BitVec 2)) (lden_prime (_ BitVec 1))) Bool 
+    (and (and (= base_prime (ite (= lden #b1) inp base)) 
+              (= addr_prime (ite (= lden #b1) inp (bvadd addr #b01)))) 
+              (= cnt_prime (ite (= lden #b1) #b00 (bvadd cnt #b01)))))
+
+(declare-var addrV (_ BitVec 2))
+(declare-var baseV (_ BitVec 2))
+(declare-var cntV (_ BitVec 2))
+(declare-var inpV (_ BitVec 2))
+(declare-var ldenV (_ BitVec 1))
+(declare-var addrP (_ BitVec 2))
+(declare-var baseP (_ BitVec 2))
+(declare-var cntP (_ BitVec 2))
+(declare-var inpP (_ BitVec 2))
+(declare-var ldenP (_ BitVec 1))
+
+(constraint (not (INV #b10 #b00 #b00)))
+(constraint (not (INV #b00 #b10 #b01)))
+(constraint (not (INV #b00 #b10 #b00)))
+(constraint (not (INV #b00 #b00 #b10)))
+(constraint (INV #b11 #b10 #b01))
+(constraint (=> (and (Init addrV baseV cntV inpV ldenV) (Tr addrV baseV cntV inpV ldenV addrP baseP cntP inpP ldenP)) (INV addrP baseP cntP)))
+(constraint (=> (Init addrP baseP cntP inpP ldenP) (INV addrP baseP cntP)))
+
+(check-synth)
+

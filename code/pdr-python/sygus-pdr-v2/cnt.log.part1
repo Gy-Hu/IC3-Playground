@@ -1,0 +1,495 @@
+[Checking property] Property: (! (((addr = 1_4) & (base = 8_4)) & (cnt = 1_4))).
+[Checking init] F0 and not P
+[Checking init]  F0 and T and not P'
+    [F0 -> prop]
+      [solveTrans] Property: (! (((addr = 1_4) & (base = 8_4)) & (cnt = 1_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (! (addr = base))))
+    [F0 -> prop] compare ITP @ F1: itp =/= prop, strictly stronger
+[Checking init] Done
+---------- Frames DUMP ----------
+Frame : 0
+  * l0:  (((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)) | blockes: set()
+Frame : 1
+---------- END Frames DUMP ----------
+Total Frames: 2, L 0 , C 0 
+
+    [F1 -> prop]
+      [solveTrans] Property: (! (((addr = 1_4) & (base = 8_4)) & (cnt = 1_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: []
+[Checking property] Get cube:  [(base, 8_4), (cnt, 0_4), (lden, 0_1), (addr, 0_4)]  @F1
+      [block] Try @F1 (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4)
+      [block] check at F0 -> F1 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 0_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 0_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 0_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (! (addr = base))))
+      [block] Succeed, return.
+[Checking property] Cube blocked '(base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4)'
+---------- Frames DUMP ----------
+Frame : 0
+  * l0:  (((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)) | blockes: set()
+Frame : 1
+  * l0:  (! ((base = 8_4) & (! (addr = base)))) | blockes: {0}
+  CEX blocked # : 1 |  CEX covered :  set()
+  *  c0  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4) | PS: Unknown | O: None
+---------- END Frames DUMP ----------
+Total Frames: 2, L 1 , C 1 
+
+    [F1 -> prop]
+      [solveTrans] Property: (! (((addr = 1_4) & (base = 8_4)) & (cnt = 1_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base))))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+[Checking property] Get cube:  None  @F1
+[Checking property] Adding frame 2...
+[pushes] F1 to F1
+  [push_lemma F1] cex to try: c0 : (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4)
+      [block] Try @F2 (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4)
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 0_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 0_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 0_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+      [block] Succeed, return.
+  [push_lemma F1] cex is pushed:  (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4)
+  [push_lemma F1] Try pushing lemma l0 to F2:  (! ((base = 8_4) & (! (addr = base))))
+      [pre_post_p_trans] Property: (! ((base = 8_4) & (! (addr = base))))
+      [pre_post_p_trans] var will => prime
+      [pre_post_p_trans] prevF: [(! ((base = 8_4) & (! (addr = base))))]
+  [push_lemma F1] Get pre cex: [(base, 8_4), (cnt, 0_4), (lden, 0_1), (addr, 8_4)]
+      [block] Try @F1 (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))]
+      [block] push to queue, F0 (base = 0_4 && cnt = 0_4 && lden = 1_1 && addr = 0_4 && inp = 8_4)
+      [block] CEX found!
+  [push_lemma F1] fail due to pre-fact : (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 8_4)
+  [push_lemma F1] post-fact : (base = 8_4 && addr = 9_4 && cnt = 1_4)
+  [push_lemma F1] start repair l0 : (! ((base = 8_4) & (! (addr = base))))
+  [shrink_var_cexs on F2] get 1 before shrink
+      [block] Try @F2 (base = 8_4 && cnt = 0_4 && addr = 0_4)
+      [block] already blocked by F2
+  [shrink_var_cexs on F2] get 1/1 after shrink
+---------- Frames DUMP ----------
+Frame : 0
+  * l0:  (((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)) | blockes: set()
+Frame : 1
+  * l0:  (! ((base = 8_4) & (! (addr = base)))) | blockes: {0}
+  CEX blocked # : 1 |  CEX covered :  set()
+     c0  | (1, 1) (0, 0) |: (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4) | PS: 0 | O: None
+    all tried to push
+  facts # : 1
+    f0:  (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 8_4)
+Frame : 2
+  * l0:  (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base)))) | blockes: {0}
+  CEX blocked # : 1 |  CEX covered :  set()
+  *  c0  | (1, 1) (0, 0) |: (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4) | PS: Unknown | O: 0
+  facts # : 1
+    f0:  (base = 8_4 && addr = 9_4 && cnt = 1_4)
+---------- END Frames DUMP ----------
+  [push_lemma F1] Invoke SyGuS Now:
+----------------
+varset:
+ {base, addr, cnt}
+----------------
+cex:
+ [{base: 8_4, cnt: 0_4, addr: 0_4}]
+----------------
+facts:
+ [{base: 8_4, addr: 9_4, cnt: 1_4}]
+[{base: 8_4, addr: 9_4, cnt: 1_4}]
+base width= 4
+['base']
+addr width= 4
+['base', 'addr']
+cnt width= 4
+['base', 'addr', 'cnt']
+{0: {'not'}}
+{0: {'and'}}
+['base', 'addr', 'cnt']
+  [SyGuS] get itp : None
+  [push_lemma F1] Repair lemma l0 failed: 
+  [push_lemma F1] push lemma finished, press any key to continue
+
+---------- Frames DUMP ----------
+Frame : 0
+  * l0:  (((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)) | blockes: set()
+Frame : 1
+    l0:  (! ((base = 8_4) & (! (addr = base)))) | blockes: {0}
+    all tried to push
+  CEX blocked # : 1 |  CEX covered :  set()
+     c0  | (1, 1) (1, 1) |: (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4) | PS: 0 | O: None
+    all tried to push
+  facts # : 1
+    f0:  (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 8_4)
+Frame : 2
+  * l0:  (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base)))) | blockes: {0}
+  CEX blocked # : 1 |  CEX covered :  set()
+  *  c0  | (1, 1) (1, 1) |: (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4) | PS: Unknown | O: 0
+  facts # : 1
+    f0:  (base = 8_4 && addr = 9_4 && cnt = 1_4)
+---------- END Frames DUMP ----------
+Total Frames: 3, L 1 , C 1 
+
+    [F2 -> prop]
+      [solveTrans] Property: (! (((addr = 1_4) & (base = 8_4)) & (cnt = 1_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base))))]
+    [solveTrans] get itp:  (! ((! (addr = (1_4 + base))) & (base = 8_4) & (! (addr = (2_4 + base))) & (! (addr = base))))
+[Checking property] Get cube:  None  @F2
+[Checking property] Adding frame 3...
+[pushes] F2 to F2
+      [block] Try @F3 (base = 8_4 && addr = 9_4 && cnt = 1_4)
+      [block] check at F2 -> F3 :  (! ((base = 8_4) & (addr = 9_4) & (cnt = 1_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (addr = 9_4) & (cnt = 1_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base)))), (! ((base = 8_4) & (addr = 9_4) & (cnt = 1_4)))]
+      [block] push to queue, F2 (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 8_4)
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))]
+      [block] push to queue, F1 (base = 2_4 && lden = 1_1 && addr = 0_4 && inp = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 2_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))
+      [solveTrans] Property: (! ((base = 2_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 2_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))]
+    [solveTrans] get itp:  (! ((! (addr = base)) & (base = 2_4)))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))]
+      [block] push to queue, F1 (base = 4_4 && lden = 1_1 && addr = 0_4 && inp = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 4_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))
+      [solveTrans] Property: (! ((base = 4_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 4_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))]
+    [solveTrans] get itp:  (! ((base = 4_4) & (! (addr = base))))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))]
+      [block] push to queue, F1 (base = 6_4 && cnt = 0_4 && lden = 1_1 && addr = 0_4 && inp = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 6_4) & (cnt = 0_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))
+      [solveTrans] Property: (! ((base = 6_4) & (cnt = 0_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 6_4) & (cnt = 0_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))]
+    [solveTrans] get itp:  (! ((base = 6_4) & (! (addr = base))))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))]
+      [block] push to queue, F1 (base = 12_4 && cnt = 0_4 && lden = 1_1 && addr = 0_4 && inp = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 12_4) & (cnt = 0_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))
+      [solveTrans] Property: (! ((base = 12_4) & (cnt = 0_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 12_4) & (cnt = 0_4) & (lden = 1_1) & (addr = 0_4) & (inp = 8_4)))]
+    [solveTrans] get itp:  (! ((base = 12_4) & (! (addr = base))))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))]
+      [block] push to queue, F1 (base = 0_4 && lden = 1_1 && inp = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 0_4) & (lden = 1_1) & (inp = 8_4)))
+      [block] CEX is reachable -- direct init!
+  [push_lemma F2] cex to try: c0 : (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4)
+      [block] Try @F3 (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4)
+      [block] check at F2 -> F3 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 0_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 0_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 0_4)))]
+    [solveTrans] get itp:  (! ((! (addr = (1_4 + base))) & (base = 8_4) & (! (addr = (2_4 + base))) & (! (addr = base))))
+      [block] Succeed, return.
+  [push_lemma F2] cex is pushed:  (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4)
+  [push_lemma F2] Try pushing lemma l0 to F3:  (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+      [pre_post_p_trans] Property: (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+      [pre_post_p_trans] var will => prime
+      [pre_post_p_trans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base))))]
+  [push_lemma F2] Get pre cex: [(base, 8_4), (cnt, 0_4), (lden, 0_1), (addr, 9_4)]
+      [block] Try @F2 (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 9_4)
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 9_4)))]
+      [block] push to queue, F1 (base = 8_4 && cnt = 15_4 && lden = 0_1 && addr = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 8_4) & (cnt = 15_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 15_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 8_4) & (cnt = 15_4) & (lden = 0_1) & (addr = 8_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (cnt = 15_4)))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 9_4)))]
+    [solveTrans] get itp:  (! ((cnt = 0_4) & (base = 8_4) & (! (addr = base))))
+      [block] Succeed, return.
+  [push_lemma F2] cex blocked:
+      [pre_post_p_trans] Property: (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+      [pre_post_p_trans] var will => prime
+      [pre_post_p_trans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base)))), (! ((cnt = 0_4) & (base = 8_4) & (! (addr = base))))]
+  [push_lemma F2] Get pre cex: [(base, 8_4), (cnt, 4_4), (lden, 0_1), (addr, 9_4)]
+      [block] Try @F2 (base = 8_4 && cnt = 4_4 && lden = 0_1 && addr = 9_4)
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 4_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 4_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((base = 8_4) & (cnt = 4_4) & (lden = 0_1) & (addr = 9_4)))]
+      [block] push to queue, F1 (base = 8_4 && cnt = 3_4 && lden = 0_1 && addr = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 8_4) & (cnt = 3_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 3_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 8_4) & (cnt = 3_4) & (lden = 0_1) & (addr = 8_4)))]
+    [solveTrans] get itp:  (! ((cnt = 3_4) & (base = 8_4)))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 4_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 4_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 4_4) & (lden = 0_1) & (addr = 9_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (! (addr = base)) & (cnt = 4_4)))
+      [block] Succeed, return.
+  [push_lemma F2] cex blocked:
+      [pre_post_p_trans] Property: (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+      [pre_post_p_trans] var will => prime
+      [pre_post_p_trans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base)))), (! ((cnt = 0_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 4_4)))]
+  [push_lemma F2] Get pre cex: [(base, 8_4), (cnt, 8_4), (lden, 0_1), (addr, 9_4)]
+      [block] Try @F2 (base = 8_4 && cnt = 8_4 && lden = 0_1 && addr = 9_4)
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 8_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 8_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 8_4) & (lden = 0_1) & (addr = 9_4)))]
+      [block] push to queue, F1 (base = 8_4 && cnt = 7_4 && lden = 0_1 && addr = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 8_4) & (cnt = 7_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 7_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 8_4) & (cnt = 7_4) & (lden = 0_1) & (addr = 8_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (cnt = 7_4)))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 8_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 8_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 8_4) & (lden = 0_1) & (addr = 9_4)))]
+    [solveTrans] get itp:  (! ((cnt = 8_4) & (base = 8_4) & (! (addr = base))))
+      [block] Succeed, return.
+  [push_lemma F2] cex blocked:
+      [pre_post_p_trans] Property: (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+      [pre_post_p_trans] var will => prime
+      [pre_post_p_trans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base)))), (! ((cnt = 0_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 4_4))), (! ((cnt = 8_4) & (base = 8_4) & (! (addr = base))))]
+  [push_lemma F2] Get pre cex: [(base, 8_4), (cnt, 12_4), (lden, 0_1), (addr, 9_4)]
+      [block] Try @F2 (base = 8_4 && cnt = 12_4 && lden = 0_1 && addr = 9_4)
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 12_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 12_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 12_4) & (lden = 0_1) & (addr = 9_4)))]
+      [block] push to queue, F1 (base = 8_4 && cnt = 11_4 && lden = 0_1 && addr = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 8_4) & (cnt = 11_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 11_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 8_4) & (cnt = 11_4) & (lden = 0_1) & (addr = 8_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (cnt = 11_4)))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 12_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 12_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 11_4))), (! ((base = 8_4) & (cnt = 12_4) & (lden = 0_1) & (addr = 9_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (cnt = 12_4) & (! (addr = base))))
+      [block] Succeed, return.
+  [push_lemma F2] cex blocked:
+      [pre_post_p_trans] Property: (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+      [pre_post_p_trans] var will => prime
+      [pre_post_p_trans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base)))), (! ((cnt = 0_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 4_4))), (! ((cnt = 8_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 12_4) & (! (addr = base))))]
+  [push_lemma F2] Get pre cex: [(base, 8_4), (cnt, 2_4), (lden, 0_1), (addr, 9_4)]
+      [block] Try @F2 (base = 8_4 && cnt = 2_4 && lden = 0_1 && addr = 9_4)
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 2_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 2_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 11_4))), (! ((base = 8_4) & (cnt = 2_4) & (lden = 0_1) & (addr = 9_4)))]
+      [block] push to queue, F1 (base = 8_4 && cnt = 1_4 && lden = 0_1 && addr = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 8_4) & (cnt = 1_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 1_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 8_4) & (cnt = 1_4) & (lden = 0_1) & (addr = 8_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (cnt = 1_4)))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 2_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 2_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 11_4))), (! ((base = 8_4) & (cnt = 1_4))), (! ((base = 8_4) & (cnt = 2_4) & (lden = 0_1) & (addr = 9_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (! (addr = base)) & (cnt = 2_4)))
+      [block] Succeed, return.
+  [push_lemma F2] cex blocked:
+      [pre_post_p_trans] Property: (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+      [pre_post_p_trans] var will => prime
+      [pre_post_p_trans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base)))), (! ((cnt = 0_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 4_4))), (! ((cnt = 8_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 2_4)))]
+  [push_lemma F2] Get pre cex: [(base, 8_4), (cnt, 10_4), (lden, 0_1), (addr, 9_4)]
+      [block] Try @F2 (base = 8_4 && cnt = 10_4 && lden = 0_1 && addr = 9_4)
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 10_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 10_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 11_4))), (! ((base = 8_4) & (cnt = 1_4))), (! ((base = 8_4) & (cnt = 10_4) & (lden = 0_1) & (addr = 9_4)))]
+      [block] push to queue, F1 (base = 8_4 && cnt = 9_4 && lden = 0_1 && addr = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 8_4) & (cnt = 9_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 9_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 8_4) & (cnt = 9_4) & (lden = 0_1) & (addr = 8_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (cnt = 9_4)))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 10_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 10_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 11_4))), (! ((base = 8_4) & (cnt = 1_4))), (! ((base = 8_4) & (cnt = 9_4))), (! ((base = 8_4) & (cnt = 10_4) & (lden = 0_1) & (addr = 9_4)))]
+    [solveTrans] get itp:  (! ((cnt = 10_4) & (base = 8_4) & (! (addr = base))))
+      [block] Succeed, return.
+  [push_lemma F2] cex blocked:
+      [pre_post_p_trans] Property: (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+      [pre_post_p_trans] var will => prime
+      [pre_post_p_trans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base)))), (! ((cnt = 0_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 4_4))), (! ((cnt = 8_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 2_4))), (! ((cnt = 10_4) & (base = 8_4) & (! (addr = base))))]
+  [push_lemma F2] Get pre cex: [(base, 8_4), (cnt, 6_4), (lden, 0_1), (addr, 9_4)]
+      [block] Try @F2 (base = 8_4 && cnt = 6_4 && lden = 0_1 && addr = 9_4)
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 6_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 6_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 11_4))), (! ((base = 8_4) & (cnt = 1_4))), (! ((base = 8_4) & (cnt = 9_4))), (! ((base = 8_4) & (cnt = 6_4) & (lden = 0_1) & (addr = 9_4)))]
+      [block] push to queue, F1 (base = 8_4 && cnt = 5_4 && lden = 0_1 && addr = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 8_4) & (cnt = 5_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 5_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 8_4) & (cnt = 5_4) & (lden = 0_1) & (addr = 8_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (cnt = 5_4)))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 6_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 6_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 11_4))), (! ((base = 8_4) & (cnt = 1_4))), (! ((base = 8_4) & (cnt = 9_4))), (! ((base = 8_4) & (cnt = 5_4))), (! ((base = 8_4) & (cnt = 6_4) & (lden = 0_1) & (addr = 9_4)))]
+    [solveTrans] get itp:  (! ((cnt = 6_4) & (base = 8_4) & (! (addr = base))))
+      [block] Succeed, return.
+  [push_lemma F2] cex blocked:
+      [pre_post_p_trans] Property: (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+      [pre_post_p_trans] var will => prime
+      [pre_post_p_trans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base)))), (! ((cnt = 0_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 4_4))), (! ((cnt = 8_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 2_4))), (! ((cnt = 10_4) & (base = 8_4) & (! (addr = base)))), (! ((cnt = 6_4) & (base = 8_4) & (! (addr = base))))]
+  [push_lemma F2] Get pre cex: [(base, 8_4), (cnt, 14_4), (lden, 0_1), (addr, 9_4)]
+      [block] Try @F2 (base = 8_4 && cnt = 14_4 && lden = 0_1 && addr = 9_4)
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 14_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 14_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 11_4))), (! ((base = 8_4) & (cnt = 1_4))), (! ((base = 8_4) & (cnt = 9_4))), (! ((base = 8_4) & (cnt = 5_4))), (! ((base = 8_4) & (cnt = 14_4) & (lden = 0_1) & (addr = 9_4)))]
+      [block] push to queue, F1 (base = 8_4 && cnt = 13_4 && lden = 0_1 && addr = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 8_4) & (cnt = 13_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 13_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 8_4) & (cnt = 13_4) & (lden = 0_1) & (addr = 8_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (cnt = 13_4)))
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 14_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 14_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 11_4))), (! ((base = 8_4) & (cnt = 1_4))), (! ((base = 8_4) & (cnt = 9_4))), (! ((base = 8_4) & (cnt = 5_4))), (! ((base = 8_4) & (cnt = 13_4))), (! ((base = 8_4) & (cnt = 14_4) & (lden = 0_1) & (addr = 9_4)))]
+    [solveTrans] get itp:  (! ((base = 8_4) & (! (addr = base)) & (cnt = 14_4)))
+      [block] Succeed, return.
+  [push_lemma F2] cex blocked:
+      [pre_post_p_trans] Property: (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+      [pre_post_p_trans] var will => prime
+      [pre_post_p_trans] prevF: [(! ((base = 8_4) & (! (addr = (... + ...))) & (! (addr = base)))), (! ((cnt = 0_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 4_4))), (! ((cnt = 8_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 2_4))), (! ((cnt = 10_4) & (base = 8_4) & (! (addr = base)))), (! ((cnt = 6_4) & (base = 8_4) & (! (addr = base)))), (! ((base = 8_4) & (! (addr = base)) & (cnt = 14_4)))]
+  [push_lemma F2] Get pre cex: [(base, 8_4), (cnt, 1_4), (lden, 0_1), (addr, 9_4)]
+      [block] Try @F2 (base = 8_4 && cnt = 1_4 && lden = 0_1 && addr = 9_4)
+      [block] check at F1 -> F2 :  (! ((base = 8_4) & (cnt = 1_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 1_4) & (lden = 0_1) & (addr = 9_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(! ((base = 8_4) & (! (addr = base)))), (! ((! (addr = base)) & (base = 2_4))), (! ((base = 4_4) & (! (addr = base)))), (! ((base = 6_4) & (! (addr = base)))), (! ((base = 12_4) & (! (addr = base)))), (! ((base = 8_4) & (cnt = 15_4))), (! ((cnt = 3_4) & (base = 8_4))), (! ((base = 8_4) & (cnt = 7_4))), (! ((base = 8_4) & (cnt = 11_4))), (! ((base = 8_4) & (cnt = 1_4))), (! ((base = 8_4) & (cnt = 9_4))), (! ((base = 8_4) & (cnt = 5_4))), (! ((base = 8_4) & (cnt = 13_4))), (! ((base = 8_4) & (cnt = 1_4) & (lden = 0_1) & (addr = 9_4)))]
+      [block] push to queue, F1 (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 8_4)
+      [block] check at F0 -> F1 :  (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] Property: (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))
+      [solveTrans] var will => prime
+      [solveTrans] prevF: [(((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)), (! ((base = 8_4) & (cnt = 0_4) & (lden = 0_1) & (addr = 8_4)))]
+      [block] push to queue, F0 (base = 0_4 && cnt = 0_4 && lden = 1_1 && addr = 0_4 && inp = 8_4)
+      [block] CEX found!
+  [push_lemma F2] fail due to pre-fact : (base = 8_4 && cnt = 1_4 && lden = 0_1 && addr = 9_4)
+  [push_lemma F2] post-fact : (base = 8_4 && addr = 10_4 && cnt = 2_4)
+  [push_lemma F2] start repair l0 : (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base))))
+  [shrink_var_cexs on F3] get 1 before shrink
+      [block] Try @F3 (base = 8_4 && cnt = 0_4 && addr = 0_4)
+      [block] already blocked by F3
+  [shrink_var_cexs on F3] get 1/1 after shrink
+---------- Frames DUMP ----------
+Frame : 0
+  * l0:  (((base = 0_4) & (addr = 0_4)) & (cnt = 0_4)) | blockes: set()
+Frame : 1
+    l0:  (! ((base = 8_4) & (! (addr = base)))) | blockes: {0}
+  * l1:  (! ((! (addr = base)) & (base = 2_4))) | blockes: {1}
+    l2:  (! ((base = 4_4) & (! (addr = base)))) | blockes: {2}
+    l3:  (! ((base = 6_4) & (! (addr = base)))) | blockes: {3}
+    l4:  (! ((base = 12_4) & (! (addr = base)))) | blockes: {4}
+    l5:  (! ((base = 8_4) & (cnt = 15_4))) | blockes: {5}
+    l6:  (! ((cnt = 3_4) & (base = 8_4))) | blockes: {6}
+    l7:  (! ((base = 8_4) & (cnt = 7_4))) | blockes: {7}
+    l8:  (! ((base = 8_4) & (cnt = 11_4))) | blockes: {8}
+    l9:  (! ((base = 8_4) & (cnt = 1_4))) | blockes: {9}
+    l10:  (! ((base = 8_4) & (cnt = 9_4))) | blockes: {10}
+    l11:  (! ((base = 8_4) & (cnt = 5_4))) | blockes: {11}
+    l12:  (! ((base = 8_4) & (cnt = 13_4))) | blockes: {12}
+  CEX blocked # : 13 |  CEX covered :  set()
+     c0  | (2, 2) (1, 1) |: (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4) | PS: 0 | O: None
+  *  c1  | (0, 0) (0, 0) |: (base = 2_4 && lden = 1_1 && addr = 0_4 && inp = 8_4) | PS: Unknown | O: None
+     c2  | (0, 0) (0, 0) |: (base = 4_4 && lden = 1_1 && addr = 0_4 && inp = 8_4) | PS: Unknown | O: None
+     c3  | (0, 0) (0, 0) |: (base = 6_4 && cnt = 0_4 && lden = 1_1 && addr = 0_4 && inp = 8_4) | PS: Unknown | O: None
+     c4  | (0, 0) (0, 0) |: (base = 12_4 && cnt = 0_4 && lden = 1_1 && addr = 0_4 && inp = 8_4) | PS: Unknown | O: None
+     c5  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 15_4 && lden = 0_1 && addr = 8_4) | PS: Unknown | O: None
+     c6  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 3_4 && lden = 0_1 && addr = 8_4) | PS: Unknown | O: None
+     c7  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 7_4 && lden = 0_1 && addr = 8_4) | PS: Unknown | O: None
+     c8  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 11_4 && lden = 0_1 && addr = 8_4) | PS: Unknown | O: None
+     c9  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 1_4 && lden = 0_1 && addr = 8_4) | PS: Unknown | O: None
+     c10  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 9_4 && lden = 0_1 && addr = 8_4) | PS: Unknown | O: None
+     c11  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 5_4 && lden = 0_1 && addr = 8_4) | PS: Unknown | O: None
+     c12  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 13_4 && lden = 0_1 && addr = 8_4) | PS: Unknown | O: None
+  facts # : 1
+    f0:  (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 8_4)
+Frame : 2
+  * l0:  (! ((base = 8_4) & (! (addr = (1_4 + base))) & (! (addr = base)))) | blockes: {0}
+    l1:  (! ((cnt = 0_4) & (base = 8_4) & (! (addr = base)))) | blockes: {1}
+    l2:  (! ((base = 8_4) & (! (addr = base)) & (cnt = 4_4))) | blockes: {2}
+    l3:  (! ((cnt = 8_4) & (base = 8_4) & (! (addr = base)))) | blockes: {3}
+    l4:  (! ((base = 8_4) & (cnt = 12_4) & (! (addr = base)))) | blockes: {4}
+    l5:  (! ((base = 8_4) & (! (addr = base)) & (cnt = 2_4))) | blockes: {5}
+    l6:  (! ((cnt = 10_4) & (base = 8_4) & (! (addr = base)))) | blockes: {6}
+    l7:  (! ((cnt = 6_4) & (base = 8_4) & (! (addr = base)))) | blockes: {7}
+    l8:  (! ((base = 8_4) & (! (addr = base)) & (cnt = 14_4))) | blockes: {8}
+  CEX blocked # : 9 |  CEX covered :  set()
+     c0  | (2, 2) (1, 1) |: (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4) | PS: 0 | O: 0
+  *  c1  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 9_4) | PS: Unknown | O: None
+     c2  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 4_4 && lden = 0_1 && addr = 9_4) | PS: Unknown | O: None
+     c3  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 8_4 && lden = 0_1 && addr = 9_4) | PS: Unknown | O: None
+     c4  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 12_4 && lden = 0_1 && addr = 9_4) | PS: Unknown | O: None
+     c5  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 2_4 && lden = 0_1 && addr = 9_4) | PS: Unknown | O: None
+     c6  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 10_4 && lden = 0_1 && addr = 9_4) | PS: Unknown | O: None
+     c7  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 6_4 && lden = 0_1 && addr = 9_4) | PS: Unknown | O: None
+     c8  | (0, 0) (0, 0) |: (base = 8_4 && cnt = 14_4 && lden = 0_1 && addr = 9_4) | PS: Unknown | O: None
+  facts # : 2
+    f0:  (base = 8_4 && addr = 9_4 && cnt = 1_4)
+    f1:  (base = 8_4 && cnt = 1_4 && lden = 0_1 && addr = 9_4)
+Frame : 3
+  * l0:  (! ((! (addr = (1_4 + base))) & (base = 8_4) & (! (addr = (2_4 + base))) & (! (addr = base)))) | blockes: {0}
+  CEX blocked # : 1 |  CEX covered :  set()
+  *  c0  | (2, 2) (1, 1) |: (base = 8_4 && cnt = 0_4 && lden = 0_1 && addr = 0_4) | PS: Unknown | O: 0
+  facts # : 2
+    f0:  (base = 8_4 && addr = 9_4 && cnt = 1_4)
+    f1:  (base = 8_4 && addr = 10_4 && cnt = 2_4)
+---------- END Frames DUMP ----------
+  [push_lemma F2] Invoke SyGuS Now:
+----------------
+varset:
+ {base, addr, cnt}
+----------------
+cex:
+ [{base: 8_4, cnt: 0_4, addr: 0_4}]
+----------------
+facts:
+ [{base: 8_4, addr: 9_4, cnt: 1_4}, {base: 8_4, addr: 10_4, cnt: 2_4}]
+[{base: 8_4, addr: 9_4, cnt: 1_4}, {base: 8_4, addr: 10_4, cnt: 2_4}]
+base width= 4
+['base']
+addr width= 4
+['base', 'addr']
+cnt width= 4
+['base', 'addr', 'cnt']
+{0: {'not'}}
+{4: {'bvadd'}, 0: {'and'}}
+['base', 'addr', 'cnt']
+  [SyGuS] get itp : ((base + cnt) = addr)
+  [push_lemma F2] New to add to all prev frame 
+  [push_lemma F2] push lemma finished, press any key to continue
+

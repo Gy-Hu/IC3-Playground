@@ -1,0 +1,17 @@
+CS704 Assignment 3: Implementing PDR
+
+In order to run all PDR examples run:
+
+python test_pdr.py run_all
+
+Output will be printed to the screen as well as written to files with names corresponding to the test cases.
+
+Individual tests can be run as well:
+
+python test_pdr.py <test>
+
+The two longest tests on my machines are counter_unsat and add_sub_unsat.
+Both of them took around a minute to solve, but probably on faster machines will take much less time.
+The time it takes them to run can be increased by increasing the width of the bit vectors.
+
+    -Alex Sherman

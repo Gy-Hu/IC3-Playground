@@ -1,0 +1,53 @@
+
+
+(set-logic BV)
+
+
+
+(synth-fun INV 
+   ((addr (_ BitVec 4)) (base (_ BitVec 4)) (cnt (_ BitVec 4)) (inp (_ BitVec 4)) (lden (_ BitVec 1))) Bool
+( (Conj Bool) (Disj Bool) (Literal Bool) (Atom Bool)
+  (E4 (_ BitVec 4)) (V4 (_ BitVec 4)) (C4 (_ BitVec 4)) (Arithm4 (_ BitVec 4)) (E1 (_ BitVec 1)) (V1 (_ BitVec 1))
+)
+(
+    (Conj Bool (Disj 
+                (and Disj Conj)))
+    (Disj Bool (Literal 
+                (or Literal Disj)))
+    (Literal Bool (Atom
+                (not Atom)))
+    (Atom Bool (
+      (= E4 E4) (= E1 E1)
+      ))
+      (E4 (_ BitVec 4) (V4 C4 Arithm4 ))
+(V4 (_ BitVec 4) (base addr cnt inp))
+(C4 (_ BitVec 4) (#b1000 #b0001))
+(Arithm4 (_ BitVec 4) ((bvadd E4 E4)))
+(E1 (_ BitVec 1) (V1 ))
+(V1 (_ BitVec 1) (lden))
+
+   ))
+
+
+(define-fun Fminus2 ((base (_ BitVec 4)) (addr (_ BitVec 4)) (cnt (_ BitVec 4)) (inp (_ BitVec 4)) (lden (_ BitVec 1))) Bool (let ((.def_0 (= cnt #b1111))) (let ((.def_1 (= base #b1000))) (let ((.def_2 (and .def_1 .def_0))) (let ((.def_3 (not .def_2))) (let ((.def_4 (= cnt #b0001))) (let ((.def_5 (and .def_4 .def_1))) (let ((.def_6 (not .def_5))) (let ((.def_7 (= cnt #b0010))) (let ((.def_8 (and .def_1 .def_7))) (let ((.def_9 (not .def_8))) (let ((.def_10 (= addr base))) (let ((.def_11 (not .def_10))) (let ((.def_12 (and .def_1 .def_11))) (let ((.def_13 (not .def_12))) (let ((.def_14 (and .def_13 .def_9 .def_6 .def_3))) .def_14))))))))))))))))
+(define-fun Tr ((base (_ BitVec 4)) (addr (_ BitVec 4)) (cnt (_ BitVec 4)) (inp (_ BitVec 4)) (lden (_ BitVec 1)) (base_prime (_ BitVec 4)) (addr_prime (_ BitVec 4)) (cnt_prime (_ BitVec 4)) (inp_prime (_ BitVec 4)) (lden_prime (_ BitVec 1))) Bool (let ((.def_0 (bvadd cnt #b0001))) (let ((.def_1 (= lden #b1))) (let ((.def_2 (ite .def_1 #b0000 .def_0))) (let ((.def_3 (= cnt_prime .def_2))) (let ((.def_4 (bvadd addr #b0001))) (let ((.def_5 (ite .def_1 inp .def_4))) (let ((.def_6 (= addr_prime .def_5))) (let ((.def_7 (ite .def_1 inp base))) (let ((.def_8 (= base_prime .def_7))) (let ((.def_9 (and .def_8 .def_6))) (let ((.def_10 (and .def_9 .def_3))) .def_10))))))))))))
+
+(declare-var baseV (_ BitVec 4))
+(declare-var addrV (_ BitVec 4))
+(declare-var cntV (_ BitVec 4))
+(declare-var inpV (_ BitVec 4))
+(declare-var ldenV (_ BitVec 1))
+(declare-var baseP (_ BitVec 4))
+(declare-var addrP (_ BitVec 4))
+(declare-var cntP (_ BitVec 4))
+(declare-var inpP (_ BitVec 4))
+(declare-var ldenP (_ BitVec 1))
+
+(constraint (not (INV #b0000 #b1000 #b0000 #b0000 #b0)))
+(constraint (not (INV #b1000 #b1000 #b0010 #b0000 #b0)))
+(constraint (not (INV #b1001 #b1000 #b0000 #b1010 #b0)))
+(constraint (not (INV #b1001 #b1000 #b0011 #b1000 #b0)))
+(constraint (INV #b1001 #b1000 #b0001 #b1000 #b0))
+
+(check-synth)
+

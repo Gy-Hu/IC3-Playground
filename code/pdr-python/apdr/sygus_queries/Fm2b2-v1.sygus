@@ -1,0 +1,62 @@
+; remove variables
+; make init
+; make it bit2
+; make it version 2
+
+(set-logic BV)
+
+
+
+(synth-fun INV 
+   ((addr (_ BitVec 2)) (base (_ BitVec 2)) (cnt (_ BitVec 2))) Bool
+
+(
+    (Start Bool (Conj))
+    (Conj Bool (Disj 
+                (and Disj Conj)))
+    (Disj Bool (Literal 
+                (or Literal Disj)))
+    (Literal Bool (Atom
+                (not Atom)))
+    (Atom Bool ((= E2 E2)))
+    (E2 (_ BitVec 2) (V2 C2 (bvadd E2 E2)))
+    (V2 (_ BitVec 2) (base addr cnt))
+    (C2 (_ BitVec 2) (#b00 #b01 #b10 #b11))
+   )
+
+)
+
+
+(define-fun Init ((addr (_ BitVec 2)) (base (_ BitVec 2)) (cnt (_ BitVec 2)) (inp (_ BitVec 2)) (lden (_ BitVec 1))) Bool 
+    (and (= #b00 addr)
+         (= #b00 base)
+         (= #b00 cnt)
+    )
+)
+         
+(define-fun Tr ((addr (_ BitVec 2)) (base (_ BitVec 2)) (cnt (_ BitVec 2)) (inp (_ BitVec 2)) (lden (_ BitVec 1)) (base_prime (_ BitVec 2)) (addr_prime (_ BitVec 2)) (cnt_prime (_ BitVec 2)) (inp_prime (_ BitVec 2)) (lden_prime (_ BitVec 1))) Bool 
+    (and (and (= base_prime (ite (= lden #b1) inp base)) 
+              (= addr_prime (ite (= lden #b1) inp (bvadd addr #b01)))) 
+              (= cnt_prime (ite (= lden #b1) #b00 (bvadd cnt #b01)))))
+
+(declare-var addrV (_ BitVec 2))
+(declare-var baseV (_ BitVec 2))
+(declare-var cntV (_ BitVec 2))
+(declare-var inpV (_ BitVec 2))
+(declare-var ldenV (_ BitVec 1))
+(declare-var addrP (_ BitVec 2))
+(declare-var baseP (_ BitVec 2))
+(declare-var cntP (_ BitVec 2))
+(declare-var inpP (_ BitVec 2))
+(declare-var ldenP (_ BitVec 1))
+
+(constraint (not (INV #b00 #b10 #b00)))
+(constraint (not (INV #b10 #b00 #b01)))
+(constraint (not (INV #b10 #b00 #b00)))
+(constraint (not (INV #b00 #b00 #b10)))
+
+(constraint (=> (and (Init addrV baseV cntV inpV ldenV) (Tr addrV baseV cntV inpV ldenV addrP baseP cntP inpP ldenP)) (INV addrP baseP cntP)))
+(constraint (=> (Init addrP baseP cntP inpP ldenP) (INV addrP baseP cntP)))
+
+(check-synth)
+

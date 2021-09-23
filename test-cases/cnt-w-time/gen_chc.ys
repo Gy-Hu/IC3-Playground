@@ -1,0 +1,14 @@
+read_verilog -sv cnt.v
+prep -top cnt
+hierarchy -check
+proc
+opt
+opt_expr -mux_undef
+opt
+opt
+sim -clock clk -reset rst -n 1 -w cnt
+flatten;
+memory -nordff
+proc
+opt;;
+write_smt2 -mem -bv -stdt -tpl chc.tpl cnt.smt2
