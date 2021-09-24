@@ -20,4 +20,12 @@ Prototype some ideas related to  IC3 algorithm. Also make a comparison environme
 ## Some Benchmark I Referred to
 
 * HWMCC
+
 * SyGuS
+
+* [zhanghongce](https://github.com/zhanghongce)/**[pdr-prototype-tests](https://github.com/zhanghongce/pdr-prototype-tests)** (The test cases included in this repo)
+
+* [makaimann](https://github.com/makaimann)/**[btor-benchmarks](https://github.com/makaimann/btor-benchmarks)**
+
+* [aman-goel](https://github.com/aman-goel)/**[avr](https://github.com/aman-goel/avr)** (The test cases included in this repo)
+
