@@ -29,3 +29,5 @@ Prototype some ideas related to  IC3 algorithm. Also make a comparison environme
 
 * [aman-goel](https://github.com/aman-goel)/**[avr](https://github.com/aman-goel/avr)** (The test cases included in this repo)
 
+*  [agurfinkel](https://github.com/agurfinkel)/**[innard-benchmarks](https://github.com/agurfinkel/innard-benchmarks)** (benchmark from IC3-inn)
+
