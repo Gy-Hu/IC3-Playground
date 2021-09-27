@@ -27,4 +27,5 @@ Prototype some ideas related to  IC3 algorithm. Also make a comparison environme
 *  [agurfinkel](https://github.com/agurfinkel)/**[innard-benchmarks](https://github.com/agurfinkel/innard-benchmarks)** (benchmark from IC3-inn)
 *  [SMT-lib](https://smtlib.cs.uiowa.edu/index.shtml) (Contains some benchmarks)
 *  [VMT-lib](https://vmt-lib.fbk.eu/) (Contains some benchmarks)
+*  [JKU benchmarks](http://fmv.jku.at/software/index.html#benchmarks)
 
