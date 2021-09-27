@@ -17,6 +17,8 @@ Prototype some ideas related to  IC3 algorithm. Also make a comparison environme
 
 - [pddenhar](https://github.com/pddenhar)/**[Z3-IC3-PDR](https://github.com/pddenhar/Z3-IC3-PDR)**
 
+- [sambayless](https://github.com/sambayless)/**[simpleIC3](https://github.com/sambayless/simpleIC3)**     
+
 ## Some Benchmark I Referred to
 
 * HWMCC
