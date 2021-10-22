@@ -19,7 +19,9 @@ Prototype some ideas related to  IC3 algorithm. Also make a comparison environme
 
 - [sambayless](https://github.com/sambayless)/**[simpleIC3](https://github.com/sambayless/simpleIC3)**
 
-- [pysmt](https://github.com/pysmt) /**[pysmt](https://github.com/pysmt/pysmt)** (Includes come MC example)      
+- [pysmt](https://github.com/pysmt)/**[pysmt](https://github.com/pysmt/pysmt)** (Includes come MC example)     
+
+- [Z3Prover](https://github.com/Z3Prover) /**[z3](https://github.com/Z3Prover/z3)** (Includes mini_ic3.py)     
 
 ## Some Benchmark I Referred to
 
