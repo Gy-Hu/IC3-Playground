@@ -1,0 +1,13 @@
+(declare-rel Goal ())
+(declare-rel Invariant ((_ BitVec 9)))
+(declare-var A (_ BitVec 9))
+(declare-var B (_ BitVec 9))
+(declare-var C Bool)
+(declare-var D Bool)
+(rule (=> (= A #b000000000) (Invariant A)))
+(rule (let ((a!1 (ite (bvule #b000000101 A)
+                #b000000000
+                (bvadd A (concat #x00 (ite D #b1 #b0))))))
+  (=> (and (Invariant A) (= B a!1)) (Invariant B))))
+(rule (=> (and (Invariant B) (bvule #b000000110 B)) Goal))
+(query Goal)

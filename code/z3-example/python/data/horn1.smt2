@@ -46,5 +46,4 @@
   (=> a!1 (Invariant L K J I H G F E D C B A))))
 (rule (=> (and (Invariant L K J I H G F E D C B A) L (not K) J (not I) H G)
     (Goal L K J I H G F E D C B A)))
-
 (query Goal)

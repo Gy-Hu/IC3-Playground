@@ -21,7 +21,9 @@ Prototype some ideas related to  IC3 algorithm. Also make a comparison environme
 
 - [pysmt](https://github.com/pysmt)/**[pysmt](https://github.com/pysmt/pysmt)** (Includes come MC example)     
 
-- [Z3Prover](https://github.com/Z3Prover) /**[z3](https://github.com/Z3Prover/z3)** (Includes mini_ic3.py)     
+- [Z3Prover](https://github.com/Z3Prover) /**[z3](https://github.com/Z3Prover/z3)** (Includes mini_ic3.py)
+
+- [mufanx](https://github.com/mufanx)/**[ic3Py](https://github.com/mufanx/ic3Py)** (Real implementation of python version ic3)
 
 ## Some Benchmark I Referred to
 

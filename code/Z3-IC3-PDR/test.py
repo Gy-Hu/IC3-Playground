@@ -1,6 +1,9 @@
 #!/usr/bin/python
 from z3 import *
 from pdr import PDR
+import time
+
+# We can learn ic3 from here: https://ericpony.github.io/z3py-tutorial/guide-examples.htm
 
 # SAFE
 # This test is a simple program that rotates the variables of three booleans
@@ -32,12 +35,18 @@ def OneAtATime():
 	variables = [Bool(str(i)) for i in range(size)]
 	primes = [Bool(str(i) + '\'') for i in variables]
 
-	def exclusive(i):
+	#print("variable:", variables[3])
+
+	def exclusive(i): #only one variable will be different
 		return And(*[primes[j] == variables[j] for j in range(size) if j != i]+[Not(primes[i] == variables[i])])
 
 	init = And(*[variables[i] for i in range(size-1)] + [(variables[-1])])
+	#init = And(*[variables[i] for i in range(size)])
+	print("init:",init)
 	trans = Or(*[exclusive(i) for i in range(size)])
+	print("trans:",trans) #this measns one of the state variable will be different after transition
 	post = Or(*variables)
+	print("post:",post)
 
 	return (variables, primes, init, trans, post)
 
@@ -49,6 +58,10 @@ def OneAtATime():
 # The post condition is that at least one bool is True
 # which cannot be violated with a bit vector of size 8 and three bits flipped per frame
 def ThreeAtATimeEven():
+	'''
+	:return: variables -> Boolean Variables, primes -> The Post Condition Variable, init -> The initial State,
+	trans -> Transition Function, post -> The Safety Property
+	'''
 	size = 8
 	variables = [Bool(str(i)) for i in range(size)]
 	primes = [Bool(str(i) + '\'') for i in variables]
@@ -58,8 +71,11 @@ def ThreeAtATimeEven():
 			[Not(primes[i] == variables[i]),Not(primes[i-1] == variables[i-1]),Not(primes[i-2] == variables[i-2])])
 
 	init = And(*[variables[i] for i in range(size-1)] + [(variables[-1])])
+	print("init:",init)
 	trans = Or(*[triple(i) for i in range(size)])
+	print("trans:", trans)
 	post = Or(*variables)
+	print("post:", post)
 
 	return (variables, primes, init, trans, post)
 
@@ -116,6 +132,7 @@ def BooleanIncrementer():
 	variables = [Bool(str(i)) for i in range(len)]
 	primes = [Bool(str(i) + '\'') for i in variables]
 	init = And(*[Not(variables[i]) for i in range(len-1)] + [variables[-1]])
+	print("init is:",init)
 	def carryout(pos):
 		if pos==len/2:
 			return False
@@ -123,7 +140,9 @@ def BooleanIncrementer():
 			return Or(And(Xor(variables[pos],variables[pos+len/2]), carryout(pos+1)),And(variables[pos],variables[pos+len/2]))
 	trans = And(*[primes[i] == Xor(Xor(variables[i],variables[i+len/2]),carryout(i+1)) for i in range(len/2)] \
 		+ [primes[i+len/2] == variables[i+len/2] for i in range(len/2)])
+	print("trans is:",trans)
 	post = Not(And(*[variables[i] for i in range(len/2)]))
+	print("post is:",post)
 	return (variables, primes, init, trans, post)
 
 # SAFE
@@ -184,14 +203,22 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Run tests examples on the PDR algorithm")
 	parser.add_argument('-ls', action='store_true')
 	parser.add_argument('testname', type=str, help='The name of the test to run', default=None, nargs='?')
-	args = parser.parse_args()
+	#args = parser.parse_args()
+	#args = parser.parse_args(['OneAtATime'])  # Pass the test case at here
+	#args = parser.parse_args(['ThreeAtATimeEven']) #Pass the test case at here
+	#args = parser.parse_args(['IncrementerOverflow'])  # Pass the test case at here
+	args = parser.parse_args(['BooleanIncrementer'])  # Pass the test case at here
+
 	if(args.ls):
 		listTests()
 	elif(args.testname!=None):
 		name = args.testname
 		print "=========== Running test", name,"==========="
+		start = time.time()
 		solver = PDR(*tests[name]())
 		solver.run()
+		print(time.time() - start - solver.ignore)
+
 	else:
 		for name in tests:
 			print "=========== Running test", name,"==========="

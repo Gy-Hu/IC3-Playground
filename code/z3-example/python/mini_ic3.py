@@ -23,20 +23,26 @@ class Horn2Transitions:
         
     def parse(self, file):
         fp = Fixedpoint()
-        goals = fp.parse_file(file)
+        goals = fp.parse_file(file) #Check
+        #print fp.get_rules()
         for r in fp.get_rules():
+            print "Now print the rule"
+            print r
             if not is_quantifier(r):
                 continue
             b = r.body()
             if not is_implies(b):
                 continue
-            f = b.arg(0)
-            g = b.arg(1)
+            f = b.arg(0) # without inv
+            g = b.arg(1) # inv
             if self.is_goal(f, g):
+                print "I am goal"
                 continue
-            if self.is_transition(f, g):
+            if self.is_transition(f, g): # Stuck on here
+                print "I am transistion"
                 continue
             if self.is_init(f, g):
+                print "I am init"
                 continue
 
     def is_pred(self, p, name):
@@ -54,10 +60,16 @@ class Horn2Transitions:
         self.inputs = list(set(self.inputs))
         return True
 
+    # Import!!! -> This function has bugs
+    #TODO: Fix is_body() return error
     def is_body(self, body):
-        if not is_and(body):
+        '''
+        :param body: r.body().arg(0) -> rule's body().arg(0)
+        :return: pred, inv0
+        '''
+        if not is_and(body): #TODO: Fix this !!! -> Accept more forms of init
             return None, None
-        fmls = [f for f in body.children() if self.is_inv(f) is None]
+        fmls = [f for f in body.children() if self.is_inv(f) is None] # important!!! this should return correctly
         inv = None
         for f in body.children():
             if self.is_inv(f) is not None:
@@ -71,6 +83,11 @@ class Horn2Transitions:
         return None
 
     def is_transition(self, body, head):
+        '''
+        :param body: r.body().arg(0)
+        :param head: r.body().arg(1)
+        :return:
+        '''
         pred, inv0 = self.is_body(body)
         if pred is None:
             return False
@@ -98,11 +115,22 @@ class Horn2Transitions:
         return True
     
     def subst_vars(self, prefix, inv, fml):
+        '''
+        :param prefix: i or x or xn
+        :param inv: pred or inv0 or inv1 (head)
+        :param fml: pred
+        :return:
+        '''
         subst = self.mk_subst(prefix, inv)
         self.vars = [ v for (k,v) in subst ]
         return substitute(fml, subst)
 
     def mk_subst(self, prefix, inv):
+        '''
+        :param prefix: i or x or xn
+        :param inv: pred or inv0 or inv1 (head)
+        :return:
+        '''
         self.index = 0
         if self.is_inv(inv) is not None:
             return [(f, self.mk_bool(prefix)) for f in inv.children()]
@@ -115,7 +143,12 @@ class Horn2Transitions:
         return Bool("%s%d" % (prefix, self.index))
 
     def get_vars(self, f, rs=[]):
-        if is_var(f):
+        '''
+        :param f: pred or inv0 or inv1 (head)
+        :param rs: []
+        :return:
+        '''
+        if is_var(f): # API in z3: identify the parameter is invariant or not
             return z3util.vset(rs + [f], str)
         else:
             for f_ in f.children():
@@ -331,7 +364,7 @@ class MiniIC3:
     def generalize(self, cube, f):
         s = self.states[f - 1].solver
         if unsat == s.check(cube):
-            core = s.unsat_core()
+            core = s.unsat_core() #not directly use !q, use q-like (generaliztion)
             if not check_disjoint(self.init, self.prev(And(core))):
                 return core, f
         return cube, f
@@ -375,7 +408,7 @@ class MiniIC3:
 def test(file):
     h2t = Horn2Transitions()
     h2t.parse(file)
-    mp = MiniIC3(h2t.init, h2t.trans, h2t.goal, h2t.xs, h2t.inputs, h2t.xns)
+    mp = MiniIC3(h2t.init, h2t.trans, h2t.goal, h2t.xs, h2t.inputs, h2t.xns) #TODO: Test btor_bit's btor file is broken or not (use pono)
     result = mp.run()    
     if isinstance(result, Goal):
        g = result
@@ -389,9 +422,8 @@ def test(file):
        return
     print(result)
 
-test("data/horn1.smt2")
-test("data/horn2.smt2")
-test("data/horn3.smt2")
-test("data/horn4.smt2")
-test("data/horn5.smt2")
-# test("data/horn6.smt2") # takes long time to finish
+#test("data/horn6.smt2") # takes long time to finish
+#test("data/verify_stall-bit-abc.smt2")
+#test("data/shortp0.smt2")
+test("data/simple_pipe_arb-start_by_cosa2.smt2")
+#test("data/counter.smt2")
