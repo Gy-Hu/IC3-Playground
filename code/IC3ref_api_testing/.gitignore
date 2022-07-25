@@ -1,7 +1,7 @@
 # ignore binary complied files
-*
-!*.*
-!*/
+# *
+# !*.*
+# !*/
 # ignore others
 *.o
 *.csv
@@ -10,9 +10,9 @@
 *.txt
 build/
 aiger/
-ensmallen/
-minisat/
-mlpack/
+# ensmallen/
+# minisat/
+# mlpack/
 .vscode/
 minisat_bak2/
 .history/
