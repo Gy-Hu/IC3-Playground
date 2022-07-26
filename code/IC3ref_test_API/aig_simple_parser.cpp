@@ -172,8 +172,16 @@ AigParser::AigParser(const std::string &aig_path)
     std::vector<size_t> lit_ids;
     //print all the formulas in lit_formulas
     for (auto lit_formula : lit_formulas)
-    {
-        std::cout<<lit_formula.first<<" "<<lit_formula.second<<std::endl;
+    {   
+        //if lit_formula.first in _next_state_literals, print it
+        for(auto lit_id : _next_state_literals)
+        {
+            if(lit_id == lit_formula.first)
+            {
+                std::cout<<lit_formula.first<<" "<<lit_formula.second<<std::endl;
+            }
+        }
+        //std::cout<<lit_formula.first<<" "<<lit_formula.second<<std::endl;
         //std::cout<<lit_formula.first<<std::endl;
         
         //store the formula in the map in the order of the literal id
@@ -181,6 +189,38 @@ AigParser::AigParser(const std::string &aig_path)
 
         //store the literal id in the vector
         lit_ids.push_back(lit_formula.first);
+
+
+        /*
+        the output like this:
+
+        12 ->34 (and (or |14| |12|) |2|)
+        14 ->18 |18|
+        16 ->38 (and (or |18| |16|) |4|)
+        18 ->22 |22|
+        20 ->42 (and (or |22| |20|) |6|)
+        22 ->26 |26|
+        24 ->46 (and (or |26| |24|) |8|)
+        26 ->31 (not |30|)
+        28 ->50 (and (not (and |30| (not |28|))) |10|)
+        30 ->15 (not |14|)
+        */
+
+       /*
+       The output tackled by pyPDR
+
+       v12_prime == And(Not(And(Not(v14), Not(v12))), i2), 
+       v14_prime == v18,
+       v16_prime == And(Not(And(Not(v18), Not(v16))), i4), 
+       v18_prime == v22, 
+       v20_prime == And(Not(And(Not(v22), Not(v20))), i6), 
+       v22_prime == v26, 
+       v24_prime == And(Not(And(Not(v26), Not(v24))), i8), 
+       v26_prime == Not(v30), v28_prime == And(Not(And(v30, Not(v28))), i10), 
+       v30_prime == Not(v14)
+
+       */
+
     }
 
     //order the literals in lit_ids according to the literal id
