@@ -49,15 +49,18 @@ void Solver::add_assertion(const std::string assertion) {
 #ifdef DEBUG
     std::cout << "Z3::" << assertion << std::endl;
 #endif
-    z3::context ctx;
-    auto&& opt = z3::optimize(ctx);
     // Parse the passed SMTLIB2 expression
-    Z3_ast_vector parsed1 = Z3_parse_smtlib2_string(c, assertion.c_str(), 0, 0, 0, nsymbols, symbols.data(), decls.data());
-    Z3_ast result = Z3_ast_vector_get(ctx, parsed1, Z3_ast_vector_size(ctx, parsed1)-1);
-    // convert the parsed SMTLIB2 (C object) to an expr object for
-    // the C++ interface
-    z3::expr formula(c, result);
-    s->add(formula);
+    Z3_ast_vector parsed1 = Z3_parse_smtlib2_string(c, assertion.c_str(), 0, 0, 0,
+            nsymbols, symbols.data(), decls.data());
+    // if (Z3_ast_vector_size(c, parsed1) == 0) {
+	// 	std::cout << "Error!!!!! " << std::endl;
+    //     throw std::runtime_error("Error parsing assertion");
+	// }
+
+	for (int i{}; i < Z3_ast_vector_size(c,parsed1); ++i) {
+		z3::expr tmp(c, Z3_ast_vector_get(c, parsed1, i));
+		s->add(tmp);
+	}
     std::cout << *s << std::endl;
 }
 
