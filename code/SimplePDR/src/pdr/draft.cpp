@@ -1,21 +1,3 @@
-/*************************************************************************
- * Copyright (C) 2017 by Rohit Dureja                                    *
- *                                                                       *
- * This file is part of SimplePDR.                                       *
- *                                                                       *
- *  SimplePDR is free software: you can redistribute it and/or modify    *
- *  it under the terms of the GNU General Public License as published by *
- *  the Free Software Foundation, either version 3 of the License, or    *
- *  (at your option) any later version.                                  *
- *                                                                       *
- *  SimplePDR is distributed in the hope that it will be useful,         *
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of       *
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
- *  GNU General Public License for more details.                         *
- *                                                                       *
- *  You should have received a copy of the GNU General Public License    *
- *  along with SimplePDR.  If not, see <http://www.gnu.org/licenses/>.   *
- *************************************************************************/
 
 #include <pdr/IC3.h>
 
@@ -53,34 +35,6 @@ IC3::IC3(std::shared_ptr<Model::Model> M) {
     generate_string(neg_invar_str, prop);
     neg_invar_str = "(assert (not " + neg_invar_str + "))";
 }
-
-/************************************************************************
- * IC3 ``main'' algorithm description is described in:                  *
- * Griggio, Alberto, and Marco Roveri. "Comparing different variants    *
- * of the IC3 algorithm for hardware model checking." IEEE              *
- * Transactions on Computer-Aided Design of Integrated Circuits and     *
- * Systems 35.6 (2016).                                                 *
- *                                                                      *
- * 	bool IC3(I,T,P):                                                    *
- * 		if is_sat(I & !P): return False;                                *
- * 		F[0] = I # first element of trace is init formula               *
- * 		k = 1, F[k] = T # add a new frame to the trace                  *
- * 		while True:                                                     *
- * 			# blocking phase                                            *
- * 			while is_sat(F[k] & P):                                     *
- * 				c = get_model() # extract bad cube c                    *
- * 				if not rec_block(c,k):                                  *
- * 					return False # counterexample found                 *
- *                                                                      *
- * 			# propagation phase                                         *
- * 			k = k + 1, F[k] = T                                         *
- * 			for i = 1 to k - 1:                                         *
- * 				for each clause c \in F[i]:                             *
- * 					if not is_sat(F[i] & c & T & !c'):                  *
- * 						add c to F[i+1]                                 *
- * 				if F[i] == F[i+1]: return True                          *
- *                                                                      *
- ************************************************************************/
 
 bool IC3::prove() {
 
@@ -122,26 +76,14 @@ bool IC3::prove() {
 
         solver->push(); // create solver stack
 
-#ifdef DEBUG
-        std::cout << "\n-------Starting blocking phase------" << std::endl;
-        std::cout << "------------------------------------\n" << std::endl;
-#endif
-
         // get SMT2 string corresponding to frames[k]
         SMTLIB2::generate_smtlib2_from_clause(frames[k], cnf_smt2, map2,
                 SMTLIB2::uncomp, NULL);
 
-#ifdef DEBUG
-        std::cout << "IC3::Frame (step = " << k << ")" << std::endl;
-        for(unsigned int i = 0; i < cnf_smt2.size(); ++i)
-        std::cout << "IC3::" << cnf_smt2[i] << std::endl;
-#endif
 
         // iterate over the SMT2 strings for each clause
         for (unsigned int i = 0; i < cnf_smt2.size(); ++i) {
-#ifdef DEBUG
-            std::cout << "IC3::Adding constraint " << cnf_smt2[i] << std::endl;
-#endif
+
             solver->add_assertion(cnf_smt2[i]); // add clause to solver
         }
         cnf_smt2.clear(); // clear strings
@@ -154,11 +96,6 @@ bool IC3::prove() {
 
             // get model corresponding to bad cube c
             std::vector<std::string> bad_cube = solver->get_model();
-#ifdef DEBUG
-            std::cout << "IC3::Bad cube found!\n";
-            for(unsigned int i = 0; i < bad_cube.size(); ++i)
-            std::cout << "IC3::" << bad_cube[i] << std::endl;
-#endif
             solver->pop(); // destroy solver stack
 
             // convert bad cube to multiple clauses
@@ -179,17 +116,9 @@ bool IC3::prove() {
             SMTLIB2::generate_smtlib2_from_clause(frames[k], cnf_smt2, map2,
                     SMTLIB2::uncomp, NULL);
 
-#ifdef DEBUG
-            std::cout << "IC3::Frame (step = " << k << ")" << std::endl;
-            for(unsigned int i = 0; i < cnf_smt2.size(); ++i)
-            std::cout << "IC3::" << cnf_smt2[i] << std::endl;
-#endif
-
             // iterate over the SMT2 strings for each clause
             for (unsigned int i = 0; i < cnf_smt2.size(); ++i) {
-#ifdef DEBUG
-                std::cout << "IC3::Adding constraint " << cnf_smt2[i] << std::endl;
-#endif
+
                 solver->add_assertion(cnf_smt2[i]); // add clause to solver
             }
             cnf_smt2.clear(); // clear strings
@@ -204,11 +133,6 @@ bool IC3::prove() {
 
         /********************** propagation phase ************************
          ************************* starts here ***************************/
-
-#ifdef DEBUG
-        std::cout << "\n-----Starting propagation phase-----" << std::endl;
-        std::cout << "------------------------------------\n" << std::endl;
-#endif
 
         k = k + 1;
         std::vector<std::shared_ptr<Clause>> n;
@@ -233,17 +157,9 @@ bool IC3::prove() {
             SMTLIB2::generate_smtlib2_from_clause(cl, cnf_smt2, map2,
                     SMTLIB2::uncomp, NULL);
 
-#ifdef DEBUG
-            std::cout << "IC3::Frame (step = " << i << ")" << std::endl;
-            for(unsigned int i = 0; i < cnf_smt2.size(); ++i)
-            std::cout << "IC3::" << cnf_smt2[i] << std::endl;
-#endif
 
             // iterate over the SMT2 strings for each clause
             for (unsigned int i = 0; i < cnf_smt2.size(); ++i) {
-#ifdef DEBUG
-                std::cout << "IC3::Adding constraint " << cnf_smt2[i] << std::endl;
-#endif
                 solver->add_assertion(cnf_smt2[i]); // add clause to solver
             }
             cnf_smt2.clear(); // clear strings
@@ -259,17 +175,8 @@ bool IC3::prove() {
                 SMTLIB2::generate_smtlib2_from_clause(m, cnf_smt2, map2,
                         SMTLIB2::uncomp, NULL);
 
-#ifdef DEBUG
-                std::cout << "IC3::clause[" << j << "] in frames[" << i << "]" << std::endl;
-                for(unsigned int i = 0; i < cnf_smt2.size(); ++i)
-                std::cout << "IC3::" << cnf_smt2[i] << std::endl;
-#endif
-
                 // iterate over the SMT2 strings for each clause
                 for (unsigned int i = 0; i < cnf_smt2.size(); ++i) {
-#ifdef DEBUG
-                    std::cout << "IC3::Adding constraint " << cnf_smt2[i] << std::endl;
-#endif
                     solver->add_assertion(cnf_smt2[i]); // add clause to solver
                 }
                 cnf_smt2.clear(); // clear strings
@@ -278,17 +185,8 @@ bool IC3::prove() {
                 SMTLIB2::generate_smtlib2_from_clause(m, cnf_smt2, map2,
                         SMTLIB2::comp, nmap);
 
-#ifdef DEBUG
-                std::cout << "IC3::(not clause[" << j << "]') in frames[" << i << "]" << std::endl;
-                for(unsigned int i = 0; i < cnf_smt2.size(); ++i)
-                std::cout << "IC3::" << cnf_smt2[i] << std::endl;
-#endif
-
                 // iterate over the SMT2 strings for each clause
                 for (unsigned int i = 0; i < cnf_smt2.size(); ++i) {
-#ifdef DEBUG
-                    std::cout << "IC3::Adding constraint " << cnf_smt2[i] << std::endl;
-#endif
                     solver->add_assertion(cnf_smt2[i]); // add clause to solver
                 }
                 cnf_smt2.clear(); // clear strings
@@ -332,12 +230,6 @@ bool IC3::prove() {
 bool IC3::check_proof_obligation(std::vector<std::shared_ptr<Clause>> s,
         unsigned int k) {
 
-
-#ifdef DEBUG
-    std::cout << "\n-------Check proof obligation-------" << std::endl;
-    std::cout << "------------------------------------\n" << std::endl;
-#endif
-
     if (k == 0)
         return false; // reached initial state
 
@@ -358,17 +250,9 @@ bool IC3::check_proof_obligation(std::vector<std::shared_ptr<Clause>> s,
         SMTLIB2::generate_smtlib2_from_clause(cl, cnf_smt2, map2, SMTLIB2::uncomp,
         NULL);
 
-    #ifdef DEBUG
-        std::cout << "IC3::Frame (step = " << k-1 << ")" << std::endl;
-        for(unsigned int i = 0; i < cnf_smt2.size(); ++i)
-        std::cout << "IC3::" << cnf_smt2[i] << std::endl;
-    #endif
-
         // iterate over the SMT2 strings for each clause
         for (unsigned int i = 0; i < cnf_smt2.size(); ++i) {
-    #ifdef DEBUG
-            std::cout << "IC3::Adding constraint " << cnf_smt2[i] << std::endl;
-    #endif
+
             solver->add_assertion(cnf_smt2[i]); // add clause to solver
         }
         cnf_smt2.clear(); // clear strings
@@ -378,17 +262,9 @@ bool IC3::check_proof_obligation(std::vector<std::shared_ptr<Clause>> s,
     SMTLIB2::generate_smtlib2_from_clause(s, cnf_smt2, map2, SMTLIB2::comp,
     NULL);
 
-#ifdef DEBUG
-    std::cout << "IC3::bad cube (not s)" << std::endl;
-    for(unsigned int i = 0; i < cnf_smt2.size(); ++i)
-    std::cout << "IC3::" << cnf_smt2[i] << std::endl;
-#endif
-
     // iterate over the SMT2 strings for each clause
     for (unsigned int i = 0; i < cnf_smt2.size(); ++i) {
-#ifdef DEBUG
-        std::cout << "IC3::Adding constraint " << cnf_smt2[i] << std::endl;
-#endif
+
         solver->add_assertion(cnf_smt2[i]); // add clause to solver
     }
     cnf_smt2.clear(); // clear strings
@@ -397,17 +273,8 @@ bool IC3::check_proof_obligation(std::vector<std::shared_ptr<Clause>> s,
     SMTLIB2::generate_smtlib2_from_clause(s, cnf_smt2, map2, SMTLIB2::uncomp,
             nmap);
 
-#ifdef DEBUG
-    std::cout << "IC3::bad cube s'" << std::endl;
-    for(unsigned int i = 0; i < cnf_smt2.size(); ++i)
-    std::cout << "IC3::" << cnf_smt2[i] << std::endl;
-#endif
-
     // iterate over the SMT2 strings for each clause
     for (unsigned int i = 0; i < cnf_smt2.size(); ++i) {
-#ifdef DEBUG
-        std::cout << "IC3::Adding constraint " << cnf_smt2[i] << std::endl;
-#endif
         solver->add_assertion(cnf_smt2[i]); // add clause to solver
     }
     cnf_smt2.clear(); // clear strings
@@ -416,12 +283,6 @@ bool IC3::check_proof_obligation(std::vector<std::shared_ptr<Clause>> s,
 
         // get model corresponding to bad cube t
         std::vector<std::string> bad_cube = solver->get_model();
-
-#ifdef DEBUG
-        std::cout << "IC3::Bad cube found!\n";
-        for(unsigned int i = 0; i < bad_cube.size(); ++i)
-        std::cout << "IC3::" << bad_cube[i] << std::endl;
-#endif
 
         solver->pop(); // destroy solver stack
 
@@ -445,17 +306,9 @@ bool IC3::check_proof_obligation(std::vector<std::shared_ptr<Clause>> s,
                 SMTLIB2::uncomp,
                 NULL);
 
-#ifdef DEBUG
-        std::cout << "IC3::Frame (step = " << k-1 << ")-------------------------5" << std::endl;
-        for(unsigned int i = 0; i < cnf_smt2.size(); ++i)
-        std::cout << "IC3::" << cnf_smt2[i] << std::endl;
-#endif
-
         // iterate over the SMT2 strings for each clause
         for (unsigned int i = 0; i < cnf_smt2.size(); ++i) {
-#ifdef DEBUG
-            std::cout << "IC3::Adding constraint " << cnf_smt2[i] << std::endl;
-#endif
+
             solver->add_assertion(cnf_smt2[i]); // add clause to solver
         }
         cnf_smt2.clear(); // clear strings
@@ -463,18 +316,9 @@ bool IC3::check_proof_obligation(std::vector<std::shared_ptr<Clause>> s,
         // get SMT2 string corresponding to (not s)
         SMTLIB2::generate_smtlib2_from_clause(s, cnf_smt2, map2, SMTLIB2::comp,
         NULL);
-
-#ifdef DEBUG
-        std::cout << "IC3::bad cube (not s)" << std::endl;
-        for(unsigned int i = 0; i < cnf_smt2.size(); ++i)
-        std::cout << "IC3::" << cnf_smt2[i] << std::endl;
-#endif
-
         // iterate over the SMT2 strings for each clause
         for (unsigned int i = 0; i < cnf_smt2.size(); ++i) {
-#ifdef DEBUG
-            std::cout << "IC3::Adding constraint " << cnf_smt2[i] << std::endl;
-#endif
+
             solver->add_assertion(cnf_smt2[i]); // add clause to solver
         }
         cnf_smt2.clear(); // clear strings
@@ -483,17 +327,10 @@ bool IC3::check_proof_obligation(std::vector<std::shared_ptr<Clause>> s,
         SMTLIB2::generate_smtlib2_from_clause(s, cnf_smt2, map2,
                 SMTLIB2::uncomp, nmap);
 
-#ifdef DEBUG
-        std::cout << "IC3::bad cube s'" << std::endl;
-        for(unsigned int i = 0; i < cnf_smt2.size(); ++i)
-        std::cout << "IC3::" << cnf_smt2[i] << std::endl;
-#endif
 
         // iterate over the SMT2 strings for each clause
         for (unsigned int i = 0; i < cnf_smt2.size(); ++i) {
-#ifdef DEBUG
-            std::cout << "IC3::Adding constraint " << cnf_smt2[i] << std::endl;
-#endif
+
             solver->add_assertion(cnf_smt2[i]); // add clause to solver
         }
         cnf_smt2.clear(); // clear strings
@@ -513,6 +350,80 @@ bool IC3::check_proof_obligation(std::vector<std::shared_ptr<Clause>> s,
     }
     return true;
 }
+
+bool IC3::shrink_cube(std::vector<std::shared_ptr<Clause>>& clauses, std::vector<std::string>& unsat_core, std::shared_ptr<Clause>& bad_cube, unsigned int k) {
+    bool changed = false;
+    std::vector<std::shared_ptr<Clause>> unsat_clauses;
+    std::vector<std::shared_ptr<Clause>> new_clauses;
+
+    // Create a mapping of clause to index in clauses
+    std::unordered_map<std::shared_ptr<Clause>, size_t> clause_index;
+    for (size_t i = 0; i < clauses.size(); ++i) {
+        clause_index.emplace(clauses[i], i);
+    }
+
+    // Create a mapping of variable to index in the bitset
+    std::unordered_map<std::string, size_t> var_index;
+    for (const auto& var : map1) {
+        var_index.emplace(var.first, var_index.size());
+    }
+
+    // Create a bitset representing the bad cube
+    std::bitset<MAX_VAR> bad_cube_bs;
+    for (const auto& lit : bad_cube->lits) {
+        std::string var = lit.var;
+        bool neg = (lit.phase == Solver::False);
+        auto it = var_index.find(var);
+        if (it == var_index.end()) {
+            std::cerr << "Variable " << var << " not found in the variable map." << std::endl;
+            return false;
+        }
+        size_t index = it->second;
+        if (neg) {
+            bad_cube_bs.set(index, false);
+        } else {
+            bad_cube_bs.set(index, true);
+        }
+    }
+
+    // Compute the ternary simulation table
+    std::vector<std::bitset<MAX_VAR>> sim_table;
+    for (const auto& clause : clauses) {
+        std::bitset<MAX_VAR> sim_row;
+        for (const auto& lit : clause->lits) {
+            std::string var = lit.var;
+            bool neg = (lit.phase == Solver::False);
+            auto it = var_index.find(var);
+            if (it == var_index.end()) {
+                std::cerr << "Variable " << var << " not found in the variable map." << std::endl;
+                return false;
+            }
+            size_t index = it->second;
+            if (neg) {
+                sim_row.set(index, false);
+            } else {
+                sim_row.set(index, true);
+            }
+        }
+        sim_table.push_back(sim_row);
+    }
+
+    // Iterate over the unsat core and try to remove literals from the clauses
+    for (const auto& uc : unsat_core) {
+        // Find the clause corresponding to the unsat core literal
+        Solver::Literal uc_lit;
+        if (!SMTLIB2::parse_literal(uc, uc_lit)) {
+            std::cerr << "Failed to parse unsat core literal " << uc << std::endl;
+            return false;
+        }
+        std::shared_ptr<Clause> uc_clause;
+        if (uc_lit.phase == Solver::False) {
+            uc_clause = std::make_shared<Clause>(Clause({Solver::Literal(uc_lit.var, Solver::True)}));
+        } else {
+            uc_clause = std::make_shared<Clause>(Clause({Solver::Literal(uc_lit.var, Solver::False)}));
+        }
+        auto it = clause
+
 
 IC3::~IC3() {
     delete solver;

@@ -5,3 +5,6 @@
 .DS_Store
 .history/
 build/
+.idea
+pyPDR/
+deprecated/
